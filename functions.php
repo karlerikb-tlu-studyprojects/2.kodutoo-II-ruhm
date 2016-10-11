@@ -11,7 +11,7 @@
 		$database = "if16_karlerik";
 			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
 			
-			$stmt = $mysqli->prepare("INSERT INTO user_sample (email, password, firstname, lastname, day, month, year, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+			$stmt = $mysqli->prepare("INSERT INTO bron_kasutajad (email, password, firstname, lastname, day, month, year, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 			
 			echo $mysqli->error;
 			
@@ -32,11 +32,11 @@
 		$error = "";
 		$database = "if16_karlerik";
 		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
-		$stmt = $mysqli->prepare("SELECT id, email, password, created, firstname, lastname FROM user_sample WHERE email = ?");
+		$stmt = $mysqli->prepare("SELECT id, email, password, firstname, lastname FROM bron_kasutajad WHERE email = ?");
 		
 		echo $mysqli->error;
 		$stmt->bind_param("s", $email);
-		$stmt->bind_result($id, $emailFromDb, $passwordFromDb, $created, $firstNameDb, $lastNameDb);
+		$stmt->bind_result($id, $emailFromDb, $passwordFromDb, $firstNameDb, $lastNameDb);
 		$stmt->execute();
 		
 		if($stmt->fetch()) {
@@ -123,6 +123,49 @@
 		return $result;
 		
 	}
+	
+	
+	
+	function getAllUsers() {
+		
+		$database = "if16_karlerik";
+		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+		
+		$stmt = $mysqli->prepare("
+			SELECT id, firstname, lastname FROM bron_kasutajad
+		");
+		
+		$stmt->bind_result($id, $firstname, $lastname);
+		$stmt->execute();
+		
+		//tekitan massiivi
+		$result = array();
+				
+		//tee seda seni, kuni on rida andmeid mis vastab select lausele
+		while($stmt->fetch()) {
+			
+			//tekitan objekti
+			$user = new StdClass();
+			
+			$user->id = $id;
+			$user->firstname = $firstname;
+			$user->lastname = $lastname;
+			
+			
+			//echo $firstname."<br>";
+			//iga kord lisan massiivi numbrimargi
+			array_push($result, $user);
+		}
+						
+		$stmt->close();
+		$mysqli->close();
+		
+		return $result;
+		
+	}
+	
+	
+	
 	
 	
 	

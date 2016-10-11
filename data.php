@@ -25,15 +25,14 @@
 	
 	if(isset($_POST["plate"]) && isset($_POST["color"]) &&
 		!empty($_POST["plate"]) && !empty($_POST["color"])) {
-			saveCar(cleanInput($_POST["plate"]),$_POST["color"]);
+			saveCar(cleanInput($_POST["plate"]),cleanInput($_POST["color"]));
 		}
 	
 	
 	
-	//saan koik autoandmed
-	$carData = getAllCars();
+	$userData = getAllUsers();
 	echo "<pre>";
-	var_dump($carData);
+	var_dump($userData);
 	echo "</pre>";
 	
 	
@@ -60,7 +59,7 @@
 
 
 
-<h2>Autod</h2>
+<h2>Uus tabel</h2>
 
 
 <?php
@@ -70,20 +69,20 @@
 	
 	$html .= "<tr>";
 		$html .= "<th>id</th>";
-		$html .= "<th>plate</th>";
-		$html .= "<th>color</th>";
+		$html .= "<th>firstname</th>";
+		$html .= "<th>lastname</th>";
 	$html .= "</tr>";
 	
 	
 	//iga liikme kohta massiivis
-	foreach($carData as $c) {
+	foreach($userData as $u) {
 		//iga auto on $c
 		//echo $c->plate."<br>";
 		
 		$html .= "<tr>";
-			$html .= "<td>".$c->id."</td>";
-			$html .= "<td>".$c->plate."</td>";
-			$html .= "<td style='background-color:".$c->carColor."'>".$c->carColor."</td>";
+			$html .= "<td>".$u->id."</td>";
+			$html .= "<td>".$u->firstname."</td>";
+			$html .= "<td>".$u->lastname."</td>";
 		$html .= "</tr>";
 		
 	}
@@ -95,14 +94,7 @@
 
 	$listHtml = "<br><br><br>";
 	
-	foreach($carData as $c) {
-		
-		$listHtml .= "<h1 style='color:".$c->carColor."'>".$c->plate."</h1>";
-		$listHtml .= "<p>color = ".$c->carColor."</p>";
-	}
-
-	echo $listHtml
-
+	
 
 
 

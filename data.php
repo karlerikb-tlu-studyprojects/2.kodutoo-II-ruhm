@@ -71,6 +71,11 @@
 		$html .= "<th>id</th>";
 		$html .= "<th>firstname</th>";
 		$html .= "<th>lastname</th>";
+		$html .= "<th>email</th>";
+		$html .= "<th>gender</th>";
+		$html .= "<th>country</th>";
+		$html .= "<th>address</th>";
+		$html .= "<th>phonenumber</th>";
 	$html .= "</tr>";
 	
 	
@@ -83,6 +88,11 @@
 			$html .= "<td>".$u->id."</td>";
 			$html .= "<td>".$u->firstname."</td>";
 			$html .= "<td>".$u->lastname."</td>";
+			$html .= "<td>".$u->email."</td>";
+			$html .= "<td>".$u->gender."</td>";
+			$html .= "<td>".$u->country."</td>";
+			$html .= "<td>".$u->address."</td>";
+			$html .= "<td>".$u->phonenumber."</td>";
 		$html .= "</tr>";
 		
 	}

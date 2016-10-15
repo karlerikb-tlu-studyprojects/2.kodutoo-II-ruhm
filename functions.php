@@ -132,10 +132,10 @@
 		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
 		
 		$stmt = $mysqli->prepare("
-			SELECT id, firstname, lastname FROM bron_kasutajad
+			SELECT id, firstname, lastname, email, gender, country, address, phonenumber FROM bron_kasutajad
 		");
 		
-		$stmt->bind_result($id, $firstname, $lastname);
+		$stmt->bind_result($id, $firstname, $lastname, $email, $gender, $country, $address, $phonenumber);
 		$stmt->execute();
 		
 		//tekitan massiivi
@@ -150,6 +150,11 @@
 			$user->id = $id;
 			$user->firstname = $firstname;
 			$user->lastname = $lastname;
+			$user->email = $email;
+			$user->gender = $gender;
+			$user->country = $country;
+			$user->address = $address;
+			$user->phonenumber = $phonenumber;
 			
 			
 			//echo $firstname."<br>";

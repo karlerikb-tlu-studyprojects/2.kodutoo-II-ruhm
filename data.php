@@ -73,6 +73,7 @@
 		$html .= "<th>lastname</th>";
 		$html .= "<th>email</th>";
 		$html .= "<th>gender</th>";
+		$html .= "<th>date of birth</th>";
 		$html .= "<th>country</th>";
 		$html .= "<th>address</th>";
 		$html .= "<th>phonenumber</th>";
@@ -90,6 +91,7 @@
 			$html .= "<td>".$u->lastname."</td>";
 			$html .= "<td>".$u->email."</td>";
 			$html .= "<td>".$u->gender."</td>";
+			$html .= "<td>".$u->dateofbirth."</td>";
 			$html .= "<td>".$u->country."</td>";
 			$html .= "<td>".$u->address."</td>";
 			$html .= "<td>".$u->phonenumber."</td>";

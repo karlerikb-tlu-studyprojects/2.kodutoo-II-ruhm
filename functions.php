@@ -6,16 +6,16 @@
 	
 	//**** SIGNUP ****
 	
-	function signUp ($email, $password, $firstname, $lastname, $day, $month, $year, $gender) {
+	function signUp ($email, $password, $firstname, $lastname, $day, $month, $year, $gender, $country, $address, $phonenumber) {
 		
 		$database = "if16_karlerik";
 			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
 			
-			$stmt = $mysqli->prepare("INSERT INTO bron_kasutajad (email, password, firstname, lastname, day, month, year, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+			$stmt = $mysqli->prepare("INSERT INTO bron_kasutajad (email, password, firstname, lastname, day, month, year, gender, country, address, phonenumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			
 			echo $mysqli->error;
 			
-			$stmt->bind_param("ssssiiis", $email, $password, $firstname, $lastname, $day, $month, $year, $gender);
+			$stmt->bind_param("ssssiiissss", $email, $password, $firstname, $lastname, $day, $month, $year, $gender, $country, $address, $phonenumber);
 			
 			if($stmt->execute()) {
 				echo "salvestamine õnnestus";	

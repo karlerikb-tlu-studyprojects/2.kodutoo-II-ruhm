@@ -155,7 +155,10 @@
 		isset($_POST["dateDay"]) &&
 		isset($_POST["dateMonth"]) &&
 		isset($_POST["dateYear"]) &&
-		isset($_POST["gender"])
+		isset($_POST["gender"]) &&
+		isset($_POST["country"]) &&
+		isset($_POST["address"]) &&
+		isset($_POST["phoneNumber"])
 		) {
 			echo "Salvestan... <br>";
 			echo "email: ".$signupEmail."<br>";
@@ -164,7 +167,7 @@
 			echo "perenimi: ".$_POST["lastName"]."<br>";
 			$password = hash("sha512", $_POST["signupPassword"]);
 			echo "password hashed: ".$password."<br>";
-			signUp($signupEmail, $password, $firstName, $lastName, $dateDay, $dateMonth, $dateYear, $gender);
+			signUp($signupEmail, $password, $firstName, $lastName, $dateDay, $dateMonth, $dateYear, $gender, $country, $address, $phoneNumber);
 		}
 	
 	

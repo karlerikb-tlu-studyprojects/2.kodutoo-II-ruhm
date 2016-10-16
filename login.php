@@ -167,7 +167,7 @@
 			echo "perenimi: ".$_POST["lastName"]."<br>";
 			$password = hash("sha512", $_POST["signupPassword"]);
 			echo "password hashed: ".$password."<br>";
-			signUp($signupEmail, $password, $firstName, $lastName, $dateDay, $dateMonth, $dateYear, $gender, $country, $address, $phoneNumber);
+			signUp(cleanInput($signupEmail), cleanInput($password), cleanInput($firstName), cleanInput($lastName), cleanInput($dateDay), cleanInput($dateMonth), cleanInput($dateYear), cleanInput($gender), cleanInput($country), cleanInput($address), cleanInput($phoneNumber));
 		}
 	
 	
@@ -175,7 +175,7 @@
 	if(isset($_POST["loginEmail"]) && isset($_POST["loginPassword"]) &&
 		!empty($_POST["loginEmail"]) && !empty($_POST["loginPassword"])
 	) {
-		$error = login($_POST["loginEmail"], $_POST["loginPassword"]);
+		$error = login(cleanInput($_POST["loginEmail"]), cleanInput($_POST["loginPassword"]));
 	}
 	
 	

@@ -11,17 +11,25 @@
 		$database = "if16_karlerik";
 			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
 			
-			$stmt = $mysqli->prepare("INSERT INTO bron_kasutajad (email, password, firstname, lastname, day, month, year, gender, country, address, phonenumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			$stmt = $mysqli->prepare("INSERT INTO users (email, password, firstname, lastname, day, month, year, gender, country, address, phonenumber, dateofbirth) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			
 			echo $mysqli->error;
+					
+			$dateofbirth = $year."-".$month."-".$day;
 			
-			$stmt->bind_param("ssssiiissss", $email, $password, $firstname, $lastname, $day, $month, $year, $gender, $country, $address, $phonenumber);
+			$stmt->bind_param("ssssiiisssss", $email, $password, $firstname, $lastname, $day, $month, $year, $gender, $country, $address, $phonenumber, $dateofbirth);
 			
 			if($stmt->execute()) {
 				echo "salvestamine õnnestus";	
 			} else {
 				echo "ERROR ".$stmt->error;
 			}
+			
+			
+			//$stmt = $mysqli->prepare("UPDATE users SET dateofbirth=STR_TO_DATE(CONCAT(year,"-",month,"-",day), "%Y-%m-%d")");
+			
+			
+			
 			$stmt->close();
 			$mysqli->close();
 	}
@@ -32,7 +40,7 @@
 		$error = "";
 		$database = "if16_karlerik";
 		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
-		$stmt = $mysqli->prepare("SELECT id, email, password, firstname, lastname FROM bron_kasutajad WHERE email = ?");
+		$stmt = $mysqli->prepare("SELECT id, email, password, firstname, lastname FROM users WHERE email = ?");
 		
 		echo $mysqli->error;
 		$stmt->bind_param("s", $email);
@@ -132,7 +140,7 @@
 		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
 		
 		$stmt = $mysqli->prepare("
-			SELECT id, firstname, lastname, email, gender, dateofbirth, country, address, phonenumber FROM bron_kasutajad
+			SELECT id, firstname, lastname, email, gender, dateofbirth, country, address, phonenumber FROM users
 		");
 		
 		$stmt->bind_result($id, $firstname, $lastname, $email, $gender, $dateofbirth, $country, $address, $phonenumber);

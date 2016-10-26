@@ -23,17 +23,18 @@
 
 	
 	
-	if(isset($_POST["plate"]) && isset($_POST["color"]) &&
-		!empty($_POST["plate"]) && !empty($_POST["color"])) {
-			saveCar(cleanInput($_POST["plate"]), cleanInput($_POST["color"]));
-		}
+	//if(isset($_POST["plate"]) && isset($_POST["color"]) &&
+		//!empty($_POST["plate"]) && !empty($_POST["color"])) {
+			//saveCar(cleanInput($_POST["plate"]), cleanInput($_POST["color"]));
+		//}
 	
 	
 	
 	$userData = getAllUsers();
-	echo "<pre>";
-	var_dump($userData);
-	echo "</pre>";
+	
+	//echo "<pre>";
+	//var_dump($userData);
+	//echo "</pre>";
 	
 	
 ?>
@@ -50,16 +51,18 @@
 <p>Tere tulemast <?=$_SESSION["userFirstName"];?> <?=$_SESSION["userLastName"];?></p>
 <a href="?logout=1">Logi välja</a>
 
+<!--
 <form method="POST">
 	<h2>Salvesta auto</h2>
 	<input name="plate" type="text" placeholder="numbrimärk">
 	<input name="color" type="color" placeholder="auto värv">
 	<input type="submit" value="salvesta">
 </form>
+-->
 
 
 
-<h2>Uus tabel</h2>
+<h2>Kasutajatabel</h2>
 
 
 <?php

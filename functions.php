@@ -26,10 +26,6 @@
 			}
 			
 			
-			//$stmt = $mysqli->prepare("UPDATE users SET dateofbirth=STR_TO_DATE(CONCAT(year,"-",month,"-",day), "%Y-%m-%d")");
-			
-			
-			
 			$stmt->close();
 			$mysqli->close();
 	}

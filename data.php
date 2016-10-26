@@ -22,12 +22,12 @@
 	}
 
 	
-	
-	//if(isset($_POST["plate"]) && isset($_POST["color"]) &&
-		//!empty($_POST["plate"]) && !empty($_POST["color"])) {
-			//saveCar(cleanInput($_POST["plate"]), cleanInput($_POST["color"]));
-		//}
-	
+	/*
+	if(isset($_POST["plate"]) && isset($_POST["color"]) &&
+		!empty($_POST["plate"]) && !empty($_POST["color"])) {
+			saveCar(cleanInput($_POST["plate"]), cleanInput($_POST["color"]));
+		}
+	*/
 	
 	
 	$userData = getAllUsers();

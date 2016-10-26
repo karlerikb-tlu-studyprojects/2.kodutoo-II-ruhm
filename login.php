@@ -143,6 +143,8 @@
 	
 	
 	
+	
+	
 	//******
 	
 	
@@ -155,7 +157,6 @@
 		isset($_POST["dateDay"]) &&
 		isset($_POST["dateMonth"]) &&
 		isset($_POST["dateYear"]) &&
-		isset($_POST["gender"]) &&
 		isset($_POST["country"]) &&
 		isset($_POST["address"]) &&
 		isset($_POST["phoneNumber"])
@@ -242,14 +243,15 @@
 			<input name="gender" type="radio" value="other" checked> Ei soovi öelda
 			<?php } else { ?>
 			<input name="gender" type="radio" value="other"> Ei soovi öelda
-			<?php } ?>
+			<?php } ?> 
 		<br><br>
+		
 		
 		<label>Sünniaeg</label>
 		<br>
-			<input name="dateDay" type="number" placeholder="Päev" value="<?=$dateDay;?>">
-			<input name="dateMonth" type="number" placeholder="Kuu" value="<?=$dateMonth;?>">
-			<input name="dateYear" type="number" placeholder="Aasta" value="<?=$dateYear;?>"> <?php echo $dateofBirthError; ?>
+			<input name="dateDay" type="number" min="1" max="31" placeholder="Päev" value="<?=$dateDay;?>">
+			<input name="dateMonth" type="number" min="1" max="12" placeholder="Kuu" value="<?=$dateMonth;?>">
+			<input name="dateYear" type="number" min="1900" max="2016" placeholder="Aasta" value="<?=$dateYear;?>"> <?php echo $dateofBirthError; ?>
 		<br><br>
 		
 		<label>Aadress</label>
@@ -264,6 +266,7 @@
 		<br><br>
 		
 		<input type="submit" value="Loo kasutaja">
+		<input type="reset" value="Kustuta andmed">
 		
 	</form>
 	

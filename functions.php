@@ -69,6 +69,7 @@
 	}
 	
 	
+	/*
 	function saveCar ($plate, $color) {
 		
 		$database = "if16_karlerik";
@@ -127,7 +128,7 @@
 		return $result;
 		
 	}
-	
+	*/
 	
 	
 	function getAllUsers() {

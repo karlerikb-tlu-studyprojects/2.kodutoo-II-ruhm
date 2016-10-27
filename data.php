@@ -35,6 +35,8 @@
 			);
 	}
 	
+	$bookingData = getAllBookings();
+	
 
 	
 	/*
@@ -97,8 +99,34 @@
 
 </form>
 
-<br><br><br><br><br><br>
+<br><br>
+<h2>Broneeringud</h2>
 
+<?php
+
+	$html = "<table>";
+	
+	$html .= "<tr>";
+		$html .= "<th>id</th>";
+		$html .= "<th>campsite</th>";
+		$html .= "<th>startdate</th>";
+		$html .= "<th>enddate</th>";
+	$html .= "</tr>";
+	
+	foreach($bookingData as $b) {
+		$html .= "<tr>";
+			$html .= "<td>".$b->id."</td>";
+			$html .= "<td>".$b->campsite."</td>";
+			$html .= "<td>".$b->startdate."</td>";
+			$html .= "<td>".$b->enddate."</td>";
+		$html .= "</tr>";
+	}
+	
+	$html .= "</table>";
+	
+	echo $html;
+
+?>
 
 
 <!--

@@ -74,9 +74,13 @@
 		
 			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
 			
-			$stmt = $mysqli->prepare("INSERT INTO bookings (campsite, daystart, monthstart, yearstart, dayend, monthend, yearend) VALUES (?, ?, ?, ?, ?, ?, ?)");
+			$stmt = $mysqli->prepare("INSERT INTO bookings (campsite, daystart, monthstart, yearstart, dayend, monthend, yearend, startdate, enddate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			echo $mysqli->error;
-			$stmt->bind_param("siiiiii", $campsite, $daystart, $monthstart, $yearstart, $dayend, $monthend, $yearend);
+			
+			$startdate = $yearstart."-".$monthstart."-".$daystart;
+			$enddate = $yearend."-".$monthend."-".$dayend;
+			
+			$stmt->bind_param("siiiiiiss", $campsite, $daystart, $monthstart, $yearstart, $dayend, $monthend, $yearend, $startdate, $enddate);
 			
 			if($stmt->execute()) {
 				echo "Salvestamine õnnestus";
@@ -86,6 +90,33 @@
 			
 			$stmt->close();
 			$mysqli->close();
+	}
+	
+	function getAllBookings () {
+		$database = "if16_karlerik";
+			
+			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+			
+			$stmt = $mysqli->prepare("SELECT id, campsite, startdate, enddate FROM bookings");
+			$stmt->bind_result($id, $campsite, $startdate, $enddate);
+			$stmt->execute();
+			
+			$result = array();
+			
+			while($stmt->fetch()) {
+				$booking = new StdClass();
+				$booking->id = $id;
+				$booking->campsite = $campsite;
+				$booking->startdate = $startdate;
+				$booking->enddate = $enddate;
+				
+				array_push($result, $booking);
+			}
+			
+			$stmt->close();
+			$mysqli->close();
+			
+			return $result;
 	}
 	
 	

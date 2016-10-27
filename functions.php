@@ -68,6 +68,26 @@
 		
 	}
 	
+	function saveBookingDate ($campsite, $daystart, $monthstart, $yearstart, $dayend, $monthend, $yearend) {
+		
+		$database = "if16_karlerik";
+		
+			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+			
+			$stmt = $mysqli->prepare("INSERT INTO bookings (campsite, daystart, monthstart, yearstart, dayend, monthend, yearend) VALUES (?, ?, ?, ?, ?, ?, ?)");
+			echo $mysqli->error;
+			$stmt->bind_param("siiiiii", $campsite, $daystart, $monthstart, $yearstart, $dayend, $monthend, $yearend);
+			
+			if($stmt->execute()) {
+				echo "Salvestamine õnnestus";
+			} else {
+				echo "ERROR ".$stmt->error;
+			}
+			
+			$stmt->close();
+			$mysqli->close();
+	}
+	
 	
 	/*
 	function saveCar ($plate, $color) {

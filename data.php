@@ -51,6 +51,41 @@
 <p>Tere tulemast <?=$_SESSION["userFirstName"];?> <?=$_SESSION["userLastName"];?></p>
 <a href="?logout=1">Logi välja</a>
 
+<form method="POST">
+	<h2>Broneeri plats</h2>
+	
+	<label>Vali plats</label><br>
+	<select>
+		<option value="plats_1">Plats 1</option>
+		<option value="plats_2">Plats 2</option>
+		<option value="plats_3">Plats 3</option>
+		<option value="plats_4">Plats 4</option>
+		<option value="plats_5">Plats 5</option>
+	</select>
+	<br><br>
+	
+	<label>Broneeringu algus</label><br>
+	<input name="bookDayBegin" type="number" min="1" max="31" placeholder="Päev">
+	<input name="bookMonthBegin" type="number" min="1" max="12" placeholder="Kuu">
+	<input name="bookYearBegin" type="number" value="2016" min="2016" max="2016" placeholder="Aasta">
+	<br><br>
+	
+	<label>Broneeringu lõpp</label><br>
+	<input name="bookDayEnd" type="number" min="1" max="31" placeholder="Päev">
+	<input name="bookMonthEnd" type="number" min="1" max="12" placeholder="Kuu">
+	<input name="bookYearEnd" type="number" min="2016" max="2018" placeholder="Aasta">
+	<br><br>
+	
+	<input type="submit" value="Broneeri">
+	<input type="reset" value="Tühista">
+
+
+</form>
+
+<br><br><br><br><br><br>
+
+
+
 <!--
 <form method="POST">
 	<h2>Salvesta auto</h2>

@@ -20,6 +20,8 @@
 	}
 	
 	
+	//**** saveDate ****
+	
 	if(isset($_POST["dateDay"]) && !empty($_POST["dateDay"]) &&
 	isset($_POST["dateMonth"]) && !empty($_POST["dateMonth"]) &&
 	isset($_POST["dateYear"]) && !empty($_POST["dateYear"])
@@ -28,7 +30,15 @@
 	}
 	
 	
+	// **** saveCampSite ****
+	
+	if(isset($_POST["createCampSite"]) && !empty($_POST["createCampSite"])) {
+		saveCampSite(cleanInput($_POST["createCampSite"]));
+	}
+	
+	
 	$dateData = getAllDates();
+	$campSiteData = getAllCampSites();
 	$userData = getAllUsers();
 	
 	//$bookingData = getAllBookings();
@@ -124,6 +134,30 @@
 
 </form>
 <br>
+
+<?php
+
+	$html = "<table>";
+	
+	$html .= "<tr>";
+		$html .= "<th>ID</th>";
+		$html .= "<th>Plats</th>";
+	$html .= "</tr>";
+	
+	foreach($campSiteData as $c) {
+		$html .= "<tr>";
+			$html .= "<td>".$c->id."</td>";
+			$html .= "<td>".$c->campsite."</td>";
+		$html .= "</tr>";
+	}
+	
+	$html .= "</table>";
+	
+	echo $html;
+
+
+?>
+
 
 <form method="POST">
 	

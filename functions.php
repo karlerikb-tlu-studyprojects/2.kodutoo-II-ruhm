@@ -125,7 +125,52 @@
 	
 	//**** CAMPSITE FUNCTIONS ****
 	
-	//function saveCampSite ()
+	function saveCampSite ($campsite) {
+		
+		$database = "if16_karlerik";
+			
+			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+			
+			$stmt = $mysqli->prepare("INSERT INTO booking_campsites (campsite) VALUES (?)");
+			echo $mysqli->error;
+			$stmt->bind_param("s", $campsite);
+			
+			if($stmt->execute()) {
+				echo "Platsi lisamine õnnestus!";
+			} else {
+				echo "ERROR ".$stmt->error;
+			}
+			
+			$stmt->close();
+			$mysqli->close();
+	}
+	
+	function getAllCampSites() {
+		
+		$database = "if16_karlerik";
+			
+			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+			
+			$stmt = $mysqli->prepare("SELECT id, campsite FROM booking_campsites");
+			echo $mysqli->error;
+			$stmt->bind_result($id, $campsite);
+			$stmt->execute();
+			
+			$result = array();
+			while($stmt->fetch()) {
+				$c = new StdClass();
+				
+				$c->id = $id;
+				$c->campsite = $campsite;
+				
+				array_push($result, $c);
+			}
+			
+			$stmt->close();
+			$mysqli->close();
+			
+			return $result;
+	}
 	
 	
 	/* saveBookingDate

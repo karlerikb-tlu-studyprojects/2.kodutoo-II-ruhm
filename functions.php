@@ -11,7 +11,7 @@
 		$database = "if16_karlerik";
 			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
 			
-			$stmt = $mysqli->prepare("INSERT INTO users (email, password, firstname, lastname, day, month, year, gender, country, address, phonenumber, dateofbirth) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			$stmt = $mysqli->prepare("INSERT INTO booking_users (email, password, firstname, lastname, day, month, year, gender, country, address, phonenumber, dateofbirth) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			
 			echo $mysqli->error;
 					
@@ -31,12 +31,13 @@
 	}
 	
 	
+	//**** LOGIN ****
 	
 	function login ($email, $password) {
 		$error = "";
 		$database = "if16_karlerik";
 		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
-		$stmt = $mysqli->prepare("SELECT id, email, password, firstname, lastname FROM users WHERE email = ?");
+		$stmt = $mysqli->prepare("SELECT id, email, password, firstname, lastname FROM booking_users WHERE email = ?");
 		
 		echo $mysqli->error;
 		$stmt->bind_param("s", $email);
@@ -68,6 +69,66 @@
 		
 	}
 	
+	
+	//**** DATE FUNCTIONS ****
+	
+	function saveDate ($dateday, $datemonth, $dateyear) {
+		
+		$database = "if16_karlerik";
+			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+			
+			$stmt = $mysqli->prepare("INSERT INTO booking_dates (dateday, datemonth, dateyear, fulldate) VALUES (?, ?, ?, ?)");
+			echo $mysqli->error;
+			
+			$fulldate = $dateyear."-".$datemonth."-".$dateday;
+			
+			$stmt->bind_param("iiis", $dateday, $datemonth, $dateyear, $fulldate);
+			
+			if($stmt->execute()) {
+				echo "Kuupäeva salvestamine õnnestus!";
+			} else {
+				echo "ERROR ".$stmt->error;
+			}
+			
+			$stmt->close();
+			$mysqli->close();
+	}
+	
+	
+	function getAllDates() {
+		
+		$database = "if16_karlerik";
+			
+			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+			
+			$stmt = $mysqli->prepare("SELECT id, fulldate FROM booking_dates");
+			$stmt->bind_result($id, $fulldate);
+			$stmt->execute();
+			
+			$result = array();
+			
+			while($stmt->fetch()) {
+				$uniquedate = new StdClass();
+				
+				$uniquedate->id = $id;
+				$uniquedate->fulldate = $fulldate;
+				
+				array_push($result, $uniquedate);
+			}
+			
+			$stmt->close();
+			$mysqli->close();
+			
+			return $result;
+	}
+	
+	
+	//**** CAMPSITE FUNCTIONS ****
+	
+	//function saveCampSite ()
+	
+	
+	/* saveBookingDate
 	function saveBookingDate ($campsite, $daystart, $monthstart, $yearstart, $dayend, $monthend, $yearend) {
 		
 		$database = "if16_karlerik";
@@ -91,7 +152,9 @@
 			$stmt->close();
 			$mysqli->close();
 	}
+	*/
 	
+	/*getAllBookings
 	function getAllBookings () {
 		$database = "if16_karlerik";
 			
@@ -118,9 +181,21 @@
 			
 			return $result;
 	}
+	*/
 	
+	/* pooleli
 	
-	/*
+	function getAllUserBookings() {	
+		$database = "if16_karlerik";
+			
+			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+			
+			$stmt = $mysqli->prepare("SELECT ")
+			
+	}
+	*/
+	
+	/* saveCar ja getAllCars
 	function saveCar ($plate, $color) {
 		
 		$database = "if16_karlerik";
@@ -188,7 +263,7 @@
 		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
 		
 		$stmt = $mysqli->prepare("
-			SELECT id, firstname, lastname, email, gender, dateofbirth, country, address, phonenumber FROM users
+			SELECT id, firstname, lastname, email, gender, dateofbirth, country, address, phonenumber FROM booking_users
 		");
 		
 		$stmt->bind_result($id, $firstname, $lastname, $email, $gender, $dateofbirth, $country, $address, $phonenumber);
@@ -223,12 +298,7 @@
 		$mysqli->close();
 		
 		return $result;
-		
 	}
-	
-	
-	
-	
 	
 	
 	function cleanInput($input) {
@@ -238,7 +308,6 @@
 		$input = htmlspecialchars($input);
 		
 		return $input;
-		
 	}
 	
 	

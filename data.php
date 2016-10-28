@@ -82,7 +82,8 @@
 
 
 <p>
-	Tere tulemast <a href="user.php"><?=$_SESSION["userFirstName"];?> <?=$_SESSION["userLastName"];?></a>
+	Tere tulemast <a href="user.php"><?=$_SESSION["userFirstName"];?> <?=$_SESSION["userLastName"];?></a>!
+	<br>
 	<a href="?logout=1">Logi välja</a>
 </p>
 

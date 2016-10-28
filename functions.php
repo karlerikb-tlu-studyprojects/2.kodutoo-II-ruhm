@@ -53,7 +53,7 @@
 				$_SESSION["userFirstName"] = $firstNameDb;
 				$_SESSION["userLastName"] = $lastNameDb;
 				
-				$_SESSEION["message"] = "<h1>Tere tulemast!</h1>";
+				$_SESSION["message"] = "<h1>Tere tulemast!</h1>";
 				
 				header("Location: data.php");
 				exit();
@@ -171,6 +171,27 @@
 			
 			return $result;
 	}
+	
+	
+	// **** USER CAMPSITE FUNCTIONS ****
+	
+	function saveUserCampSite($campsite, $startdate, $enddate) {
+		
+		$database = "if16_karlerik";
+			
+			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+			
+			$stmt = $mysqli->prepare("INSERT INTO booking_reserv (userid, campsiteid, startdateid, enddateid) VALUES (?, ?, ?, ?)");
+			echo $mysqli->error;
+			$stmt->bind_param("iiii", $_SESSION["userId"], $campsite, $startdate, $enddate);
+			
+			if($stmt->execute()) {
+				echo "Broneerimine õnnestus!";
+			} else {
+				echo "ERROR ".$stmt->error;
+			}
+	}
+
 	
 	
 	/* saveBookingDate

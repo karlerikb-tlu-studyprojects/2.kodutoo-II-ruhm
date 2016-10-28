@@ -14,7 +14,11 @@ CREATE TABLE booking_campsites(
 CREATE TABLE booking_reserv(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	userid INT,
-	campsiteid INT
-	FOREIGN KEY(userid) REFERENCES booking_users(id);
-	FOREIGN KEY(campsiteid) REFERENCES booking_campsites(id);
+	campsiteid INT,
+	startdateid INT,
+	enddateid INT,
+	FOREIGN KEY(userid) REFERENCES booking_users(id),
+	FOREIGN KEY(campsiteid) REFERENCES booking_campsites(id),
+	FOREIGN KEY(startdateid) REFERENCES booking_dates(id),
+	FOREIGN KEY(enddateid) REFERENCES booking_dates(id)
 );

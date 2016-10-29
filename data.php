@@ -22,12 +22,12 @@
 	
 	//**** saveDate ****
 	
-	if(isset($_POST["dateDay"]) && !empty($_POST["dateDay"]) &&
+	/*if(isset($_POST["dateDay"]) && !empty($_POST["dateDay"]) &&
 	isset($_POST["dateMonth"]) && !empty($_POST["dateMonth"]) &&
 	isset($_POST["dateYear"]) && !empty($_POST["dateYear"])
 	) {
 		saveDate(cleanInput($_POST["dateDay"]), cleanInput($_POST["dateMonth"]), cleanInput($_POST["dateYear"]));
-	}
+	}*/
 	
 	
 	// **** saveCampSite ****
@@ -37,7 +37,7 @@
 	}
 	
 	
-	$dateData = getAllDates();
+	//$dateData = getAllDates();
 	$campSiteData = getAllCampSites();
 	$userData = getAllUsers();
 	
@@ -45,7 +45,7 @@
 	
 	
 	
-	/* saveBookingDate
+	/*saveBookingDate
 	if(isset($_POST["campSite"]) && !empty($_POST["campSite"]) &&
 	isset($_POST["bookDayStart"]) && !empty($_POST["bookDayStart"]) &&
 	isset($_POST["bookMonthStart"]) && !empty($_POST["bookMonthStart"]) &&
@@ -61,7 +61,7 @@
 	}
 	*/
 	
-	/* saveCar
+	/*saveCar
 	if(isset($_POST["plate"]) && isset($_POST["color"]) &&
 		!empty($_POST["plate"]) && !empty($_POST["color"])) {
 			saveCar(cleanInput($_POST["plate"]), cleanInput($_POST["color"]));
@@ -160,7 +160,7 @@
 ?>
 
 
-<form method="POST">
+<!--<form method="POST">
 	
 	<h3>Kuupäev</h3>
 	<label>Sisesta kuupäev</label><br>
@@ -172,10 +172,10 @@
 	<input type="submit" value="Sisesta">
 	<input type="reset" value="Tühista">
 	
-</form>	
+</form>-->
 
 
-<?php
+<?php /*
 
 	$html = "<table>";
 	
@@ -196,7 +196,7 @@
 	echo $html;
 
 
-
+*/
 ?>
 <br><br>
 

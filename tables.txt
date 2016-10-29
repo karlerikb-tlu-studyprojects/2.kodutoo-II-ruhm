@@ -29,12 +29,12 @@ SELECT campsite FROM booking_campsites
 JOIN booking_reserv ON booking_campsites.id=booking_reserv.campsiteid
 WHERE booking_reserv.userid = ?
 
-SELECT campsite, fulldate
+SELECT campsite, fulldate_start, fulldate_end
 	FROM booking_campsites c
 	JOIN booking_reserv r ON c.id=r.campsiteid
-	JOIN booking_dates d ON r.startdateid=d.id
-	
-	JOIN booking_dates e ON r.enddateid=e.id;
+	JOIN booking_dates_start s ON r.startdateid=s.id
+	JOIN booking_dates_end e ON r.enddateid=e.id
+	WHERE r.userid = ?
 
 	
 SELECT campsite FROM booking_campsites

@@ -25,12 +25,17 @@
 		saveUserCampSite(cleanInput($_POST["selectCampSite"]), cleanInput($_POST["bookStartDate"]), cleanInput($_POST["bookEndDate"]));
 	}
 	
-	$bookingdates = getAllDates();
+	
 	$campsites = getAllCampSites();
+	$bookingDatesStart = getAllStartDates();
+	$bookingDatesEnd = getAllEndDates();
+	$userbookings = getAllUserBookings();
+	
+	/*
 	$usercampsites = getUserCampSites();
 	$userbookstart = getUserBookStart();
 	$userbookend = getUserBookEnd();
-
+	*/
 
 ?>
 
@@ -73,8 +78,8 @@
 		
 			$listHtml = "";
 			
-			foreach($bookingdates as $d) {
-				$listHtml .= "<option value='".$d->id."'>".$d->fulldate."</option>";
+			foreach($bookingDatesStart as $s) {
+				$listHtml .= "<option value='".$s->id."'>".$s->fulldate_start."</option>";
 			}
 			echo $listHtml;
 			
@@ -88,8 +93,8 @@
 		
 			$listHtml = "";
 			
-			foreach($bookingdates as $d) {
-				$listHtml .= "<option value='".$d->id."'>".$d->fulldate."</option>";
+			foreach($bookingDatesEnd as $e) {
+				$listHtml .= "<option value='".$e->id."'>".$e->fulldate_end."</option>";
 			}
 			echo $listHtml;
 			
@@ -103,8 +108,6 @@
 	
 <?php
 
-	
-
 	$html = "<table>";
 	
 	$html .= "<tr>";
@@ -113,45 +116,16 @@
 		$html .= "<th>Lõpp</th>";
 	$html .= "</tr>";
 
-	foreach($usercampsites as $c) {
+	foreach($userbookings as $b) {
 		$html .= "<tr>";
-			$html .= "<td>".$c->campsite."</td>";
-			foreach($userbookstart as $s) {
-				$html .= "<td>".$s->fulldate."</td>";
-				foreach($userbookend as $e) {
-					$html .= "<td>".$e->fulldate."</td>";
-				}
-			}
+			$html .= "<td>".$b->campsite."</td>";
+			$html .= "<td>".$b->fulldate_start."</td>";
+			$html .= "<td>".$b->fulldate_end."</td>";
 		$html .= "</tr>";
 	}
-	
-	/*
-	$html .= "<tr>";
-		$html .= "<th>Algus</th>";
-	$html .= "</tr>";
-	
-	foreach($userbookstart as $s) {
-		$html .= "<tr>";
-			$html .= "<td>".$s->fulldate."</td>";
-		$html .= "</tr>";
-	}
-	
-	$html .= "<tr>";
-		$html .= "<th>Lõpp</th>";
-	$html .= "</tr>";
-	
-	foreach($userbookend as $e) {
-		$html .= "<tr>";
-			$html .= "<td>".$e->fulldate."</td>";
-		$html .= "</tr>";
-	}
-	*/
 	
 	$html .= "</table>";
 	echo $html;
-
-
-	
 	
 ?>
 	

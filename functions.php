@@ -72,7 +72,7 @@
 	
 	//**** DATE FUNCTIONS ****
 	
-	function saveDate ($dateday, $datemonth, $dateyear) {
+	/*function saveDate ($dateday, $datemonth, $dateyear) {
 		
 		$database = "if16_karlerik";
 			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
@@ -92,16 +92,16 @@
 			
 			$stmt->close();
 			$mysqli->close();
-	}
+	}*/
 	
 	
-	function getAllDates() {
+	function getAllStartDates() {
 		
 		$database = "if16_karlerik";
 			
 			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
 			
-			$stmt = $mysqli->prepare("SELECT id, fulldate FROM booking_dates");
+			$stmt = $mysqli->prepare("SELECT id, fulldate_start FROM booking_dates_start");
 			$stmt->bind_result($id, $fulldate);
 			$stmt->execute();
 			
@@ -111,7 +111,34 @@
 				$uniquedate = new StdClass();
 				
 				$uniquedate->id = $id;
-				$uniquedate->fulldate = $fulldate;
+				$uniquedate->fulldate_start = $fulldate;
+				
+				array_push($result, $uniquedate);
+			}
+			
+			$stmt->close();
+			$mysqli->close();
+			
+			return $result;
+	}
+	
+	function getAllEndDates() {
+		
+		$database = "if16_karlerik";
+			
+			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+			
+			$stmt = $mysqli->prepare("SELECT id, fulldate_end FROM booking_dates_end");
+			$stmt->bind_result($id, $fulldate);
+			$stmt->execute();
+			
+			$result = array();
+			
+			while($stmt->fetch()) {
+				$uniquedate = new StdClass();
+				
+				$uniquedate->id = $id;
+				$uniquedate->fulldate_end = $fulldate;
 				
 				array_push($result, $uniquedate);
 			}
@@ -173,7 +200,7 @@
 	}
 	
 	
-	// **** USER CAMPSITE FUNCTIONS ****
+	// **** USER BOOKING FUNCTIONS ****
 	
 	function saveUserCampSite($campsite, $startdate, $enddate) {
 		
@@ -192,7 +219,41 @@
 			}
 	}
 	
-	function getUserCampSites() {
+	function getAllUserBookings() {
+		$database = "if16_karlerik";
+			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+			
+			$stmt = $mysqli->prepare("
+				SELECT campsite, fulldate_start, fulldate_end
+				FROM booking_campsites c
+				JOIN booking_reserv r ON c.id=r.campsiteid
+				JOIN booking_dates_start s ON r.startdateid=s.id
+				JOIN booking_dates_end e ON r.enddateid=e.id
+				WHERE r.userid = ?
+			");
+			echo $mysqli->error;
+			$stmt->bind_param("i", $_SESSION["userId"]);
+			
+			$stmt->bind_result($campsite, $startdate, $enddate);
+			$stmt->execute();
+			
+			$result = array();
+			while($stmt->fetch()) {
+				$b = new StdClass();
+				
+				$b->campsite = $campsite;
+				$b->fulldate_start = $startdate;
+				$b->fulldate_end = $enddate;
+				
+				array_push($result, $b);
+			}
+			$stmt->close();
+			$mysqli->close();
+			return $result;
+	}
+	
+	
+	/*function getUserCampSites() {
 		$database = "if16_karlerik";
 			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
 			$stmt = $mysqli->prepare("
@@ -214,9 +275,9 @@
 			$stmt->close();
 			$mysqli->close();
 			return $result;
-	}
+	}*/
 	
-	function getUserBookStart() {
+	/*function getUserBookStart() {
 		$database = "if16_karlerik";
 			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
 			$stmt = $mysqli->prepare("
@@ -238,9 +299,9 @@
 			$stmt->close();
 			$mysqli->close();
 			return $result;
-	}
+	}*/
 	
-		function getUserBookEnd() {
+	/*function getUserBookEnd() {
 		$database = "if16_karlerik";
 			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
 			$stmt = $mysqli->prepare("
@@ -262,11 +323,9 @@
 			$stmt->close();
 			$mysqli->close();
 			return $result;
-	}
-
-	
-	
-	/* saveBookingDate
+	}*/
+		
+	/*saveBookingDate
 	function saveBookingDate ($campsite, $daystart, $monthstart, $yearstart, $dayend, $monthend, $yearend) {
 		
 		$database = "if16_karlerik";
@@ -289,8 +348,7 @@
 			
 			$stmt->close();
 			$mysqli->close();
-	}
-	*/
+	}*/
 	
 	/*getAllBookings
 	function getAllBookings () {
@@ -320,19 +378,7 @@
 			return $result;
 	}
 	*/
-	
-	/* pooleli
-	
-	function getAllUserBookings() {	
-		$database = "if16_karlerik";
-			
-			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
-			
-			$stmt = $mysqli->prepare("SELECT ")
-			
-	}
-	*/
-	
+		
 	/* saveCar ja getAllCars
 	function saveCar ($plate, $color) {
 		

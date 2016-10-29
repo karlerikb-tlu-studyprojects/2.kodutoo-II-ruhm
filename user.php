@@ -27,7 +27,9 @@
 	
 	$bookingdates = getAllDates();
 	$campsites = getAllCampSites();
-
+	$usercampsites = getUserCampSites();
+	$userbookstart = getUserBookStart();
+	$userbookend = getUserBookEnd();
 
 
 ?>
@@ -95,8 +97,64 @@
 	</select>
 	<br><br>
 	
-	
 	<input type="submit" value="Broneeri">
+	
+<h2>Kasutaja broneeringud</h2>
+	
+<?php
+
+	
+
+	$html = "<table>";
+	
+	$html .= "<tr>";
+		$html .= "<th>Plats</th>";
+		$html .= "<th>Algus</th>";
+		$html .= "<th>Lõpp</th>";
+	$html .= "</tr>";
+
+	foreach($usercampsites as $c) {
+		$html .= "<tr>";
+			$html .= "<td>".$c->campsite."</td>";
+			foreach($userbookstart as $s) {
+				$html .= "<td>".$s->fulldate."</td>";
+				foreach($userbookend as $e) {
+					$html .= "<td>".$e->fulldate."</td>";
+				}
+			}
+		$html .= "</tr>";
+	}
+	
+	/*
+	$html .= "<tr>";
+		$html .= "<th>Algus</th>";
+	$html .= "</tr>";
+	
+	foreach($userbookstart as $s) {
+		$html .= "<tr>";
+			$html .= "<td>".$s->fulldate."</td>";
+		$html .= "</tr>";
+	}
+	
+	$html .= "<tr>";
+		$html .= "<th>Lõpp</th>";
+	$html .= "</tr>";
+	
+	foreach($userbookend as $e) {
+		$html .= "<tr>";
+			$html .= "<td>".$e->fulldate."</td>";
+		$html .= "</tr>";
+	}
+	*/
+	
+	$html .= "</table>";
+	echo $html;
+
+
+	
+	
+?>
+	
 	
 
 </form>

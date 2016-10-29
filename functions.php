@@ -191,6 +191,78 @@
 				echo "ERROR ".$stmt->error;
 			}
 	}
+	
+	function getUserCampSites() {
+		$database = "if16_karlerik";
+			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+			$stmt = $mysqli->prepare("
+				SELECT campsite FROM booking_campsites
+				JOIN booking_reserv ON booking_campsites.id=booking_reserv.campsiteid
+				WHERE booking_reserv.userid = ?
+			");
+			echo $mysqli->error;
+			$stmt->bind_param("i", $_SESSION["userId"]);
+			$stmt->bind_result($campsite);
+			$stmt->execute();
+			
+			$result = array();
+			while ($stmt->fetch()) {
+				$c = new StdClass();
+				$c->campsite = $campsite;
+				array_push($result, $c);
+			}
+			$stmt->close();
+			$mysqli->close();
+			return $result;
+	}
+	
+	function getUserBookStart() {
+		$database = "if16_karlerik";
+			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+			$stmt = $mysqli->prepare("
+				SELECT fulldate FROM booking_dates
+				JOIN booking_reserv ON booking_dates.id=booking_reserv.startdateid
+				WHERE booking_reserv.userid = ?
+			");
+			echo $mysqli->error;
+			$stmt->bind_param("i", $_SESSION["userId"]);
+			$stmt->bind_result($fulldate);
+			$stmt->execute();
+			
+			$result = array();
+			while ($stmt->fetch()) {
+				$s = new StdClass();
+				$s->fulldate = $fulldate;
+				array_push($result, $s);
+			}
+			$stmt->close();
+			$mysqli->close();
+			return $result;
+	}
+	
+		function getUserBookEnd() {
+		$database = "if16_karlerik";
+			$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+			$stmt = $mysqli->prepare("
+				SELECT fulldate FROM booking_dates
+				JOIN booking_reserv ON booking_dates.id=booking_reserv.enddateid
+				WHERE booking_reserv.userid = ?
+			");
+			echo $mysqli->error;
+			$stmt->bind_param("i", $_SESSION["userId"]);
+			$stmt->bind_result($fulldate);
+			$stmt->execute();
+			
+			$result = array();
+			while ($stmt->fetch()) {
+				$e = new StdClass();
+				$e->fulldate = $fulldate;
+				array_push($result, $e);
+			}
+			$stmt->close();
+			$mysqli->close();
+			return $result;
+	}
 
 	
 	

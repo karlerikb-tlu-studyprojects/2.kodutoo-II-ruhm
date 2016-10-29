@@ -22,3 +22,25 @@ CREATE TABLE booking_reserv(
 	FOREIGN KEY(startdateid) REFERENCES booking_dates(id),
 	FOREIGN KEY(enddateid) REFERENCES booking_dates(id)
 );
+
+
+
+SELECT campsite FROM booking_campsites
+JOIN booking_reserv ON booking_campsites.id=booking_reserv.campsiteid
+WHERE booking_reserv.userid = ?
+
+SELECT campsite, fulldate
+	FROM booking_campsites c
+	JOIN booking_reserv r ON c.id=r.campsiteid
+	JOIN booking_dates d ON r.startdateid=d.id
+	
+	JOIN booking_dates e ON r.enddateid=e.id;
+
+	
+SELECT campsite FROM booking_campsites
+JOIN booking_reserv ON booking_campsites.id=booking_reserv.campsiteid
+WHERE booking_reserv.userid = ?
+
+SELECT fulldate FROM booking_dates
+JOIN booking_reserv ON booking_dates.id=booking_reserv.startdateid
+WHERE booking_reserv.userid = ?

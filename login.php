@@ -18,6 +18,7 @@
 	$addressError = "";
 	$phoneNumberError = "";
 	$gender = "";
+	$loginEmail = "";
 	$signupEmail = "";
 	$firstName = "";
 	$lastName = "";
@@ -200,7 +201,7 @@
 <body>
 	<h1>Logi sisse</h1>
 	<form method="POST">
-		<input name="loginEmail" type="text" placeholder="E-mail"> <?php echo $loginEmailError; ?>
+		<input name="loginEmail" type="text" placeholder="E-mail" value="<?=$loginEmail;?>"> <?php echo $loginEmailError; ?>
 		<br><br>
 	
 		<input name="loginPassword" type="password" placeholder="Parool"> <?php echo $loginPasswordError; ?>

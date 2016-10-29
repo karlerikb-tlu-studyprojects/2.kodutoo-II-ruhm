@@ -19,6 +19,16 @@
 		unset($_SESSION["message"] );
 	}
 	
+	$createCampSiteError = "";
+	
+	if(isset($_POST["createCampSite"] )) {
+		if(empty($_POST["createCampSite"] )) {
+			$createCampSiteError = "Sisesta platsi nimi";
+		} else {
+			$createCampSite = $_POST["createCampSite"];
+		}
+	}
+	
 	
 	//**** saveDate ****
 	
@@ -128,7 +138,7 @@
 	
 	<h3>Plats</h3>
 	<label>Sisesta plats</label><br>
-	<input name="createCampSite" type="text">
+	<input name="createCampSite" type="text"> <?php echo $createCampSiteError; ?>
 	<br><br>
 	
 	<input type="submit" value="Sisesta">
